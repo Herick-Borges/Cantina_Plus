@@ -1,0 +1,4 @@
+
+ALTER TABLE Usuarios
+ADD COLUMN reset_token VARCHAR(64) NULL,
+ADD COLUMN token_expira DATETIME NULL;

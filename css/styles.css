@@ -66,6 +66,12 @@ h2 {
 
 }
 
+/* Input de Email na Recuperação de Senha */
+#Email {
+    width: 300px; /* Largura aumentada */
+    padding: 12px; /* Padding aumentado */
+}
+
 /* Botão */
 button {
     background-color: #a52a2a;
