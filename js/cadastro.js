@@ -235,11 +235,15 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Validar todos os campos antes de enviar o formulário
         form.addEventListener('submit', function(e) {
-            // Verificar campos da última etapa
-            if (!validateCurrentStep()) {
+            // Verificar campos da última etapa - apenas logar, não prevenir o envio
+            const isValid = validateCurrentStep();
+            console.log("Formulário sendo enviado, validação:", isValid ? "Válida" : "Inválida");
+            
+            // Se estamos na última etapa e o formulário não é válido, prevenir o envio
+            if (!isValid) {
                 e.preventDefault();
-                // Removido o alert
                 console.log("Formulário não enviado devido a campos obrigatórios vazios.");
+                alert("Por favor, preencha todos os campos corretamente antes de enviar."); // Adicionei alerta para o usuário
             } else {
                 console.log("Formulário validado com sucesso. Enviando...");
             }

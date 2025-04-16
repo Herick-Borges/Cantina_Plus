@@ -1,3 +1,14 @@
+<?php
+session_start();
+
+// Recuperar dados do formulário em caso de erro
+$form_data = isset($_SESSION['form_data']) ? $_SESSION['form_data'] : [];
+unset($_SESSION['form_data']); // Limpar depois de usar
+
+// Recuperar erros
+$erros = isset($_SESSION['erros']) ? $_SESSION['erros'] : [];
+unset($_SESSION['erros']); // Limpar depois de usar
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -12,24 +23,36 @@
     </div>
 
     <div class="container">
+        <?php if (!empty($erros)): ?>
+            <div class="alert alert-danger">
+                <ul>
+                    <?php foreach($erros as $erro): ?>
+                        <li><?php echo htmlspecialchars($erro); ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        <?php endif; ?>
+
         <div class="progress-bar">
             <div class="progress" id="progress"></div>
         </div>
 
-        <form id="multiStepForm" action="" method="post" class="box">
+        <form id="multiStepForm" action="cadastro.php" method="post" class="box">
             <!-- Etapa 1: Dados Pessoais -->
             <div class="step active">
                 <h2>Dados Pessoais:</h2>
                 <div class="input-group">
                     <div class="input-wrapper">
                         <label for="Nome">Nome:</label>
-                        <input type="text" name="Nome" id="Nome" placeholder="Digite seu nome completo:" required>
+                        <input type="text" name="Nome" id="Nome" placeholder="Digite seu nome completo:" required 
+                               value="<?php echo isset($form_data['Nome']) ? htmlspecialchars($form_data['Nome']) : ''; ?>">
                     </div>
                 </div>
                 <div class="input-group">
                     <div class="input-wrapper">
                         <label for="CPF">CPF:</label>
-                        <input type="text" name="CPF" id="CPF" placeholder="Digite seu CPF:" required>
+                        <input type="text" name="CPF" id="CPF" placeholder="Digite seu CPF:" required
+                               value="<?php echo isset($form_data['CPF']) ? htmlspecialchars($form_data['CPF']) : ''; ?>">
                     </div>
                 </div>
                 <button type="button" id="nextBtn1">Próximo</button>
@@ -41,13 +64,15 @@
                 <div class="input-group">
                     <div class="input-wrapper">
                         <label for="Email">Email:</label>
-                        <input type="email" name="Email" id="Email" placeholder="Digite seu email:" required>
+                        <input type="email" name="Email" id="Email" placeholder="Digite seu email:" required
+                               value="<?php echo isset($form_data['Email']) ? htmlspecialchars($form_data['Email']) : ''; ?>">
                     </div>
                 </div>
                 <div class="input-group">
                     <div class="input-wrapper">
                         <label for="Telefone">Telefone:</label>
-                        <input type="tel" name="Telefone" id="Telefone" placeholder="Digite seu telefone:" required>
+                        <input type="tel" name="Telefone" id="Telefone" placeholder="Digite seu telefone:" required
+                               value="<?php echo isset($form_data['Telefone']) ? htmlspecialchars($form_data['Telefone']) : ''; ?>">
                     </div>
                 </div>
                 <button type="button" id="prevBtn2">Voltar</button>
@@ -60,7 +85,8 @@
                 <div class="input-group">
                     <div class="input-wrapper">
                         <label for="usuario">Usuário:</label>
-                        <input type="text" name="usuario" id="usuario" placeholder="Digite seu nome de usuário:" required>
+                        <input type="text" name="usuario" id="usuario" placeholder="Digite seu nome de usuário:" required
+                               value="<?php echo isset($form_data['usuario']) ? htmlspecialchars($form_data['usuario']) : ''; ?>">
                     </div>
                 </div>
                 <div class="input-group">
@@ -81,22 +107,6 @@
 
     <script src="js/cadastro.js"></script>
     
-    <!-- Script para depuração mais detalhada -->
-    <script>
-        console.log("Script de depuração carregado");
-        function verificarFuncoes() {
-            console.log("Verificando funções:");
-            console.log("nextStep existe:", typeof nextStep === 'function');
-            console.log("prevStep existe:", typeof prevStep === 'function');
-            
-            // Testar as funções diretamente
-            console.log("Valores iniciais:");
-            console.log("currentStep:", currentStep);
-            console.log("steps.length:", steps ? steps.length : "steps não definido");
-        }
-        setTimeout(verificarFuncoes, 1000);
-    </script>
-
     <!-- Script personalizado para garantir o funcionamento correto -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -121,9 +131,32 @@
                 prevStep();
             });
             
+            // Adicionar evento de log para o botão de cadastro
+            document.getElementById('submitBtn').addEventListener('click', function(event) {
+                // Não prevenimos o evento padrão aqui para permitir o envio do formulário
+                console.log("Botão Cadastrar clicado. Enviando formulário...");
+                
+                // Forçar envio do formulário após validação
+                const form = document.getElementById('multiStepForm');
+                if (validateCurrentStep()) {
+                    console.log("Validação passou! Enviando formulário...");
+                    // Desativa a prevenção padrão dos outros handlers
+                    event.stopImmediatePropagation();
+                    form.submit();
+                } else {
+                    console.log("Validação falhou. O formulário não será enviado.");
+                    event.preventDefault();
+                }
+            });
+            
+            // Modificar o handler de submit do formulário para depuração
+            document.getElementById('multiStepForm').addEventListener('submit', function(e) {
+                console.log("Formulário sendo enviado para cadastro.php");
+                // Não chamar e.preventDefault() aqui para permitir o envio
+            });
+            
             console.log("Handlers de eventos configurados para os botões");
         });
     </script>
-
 </body>
 </html>
