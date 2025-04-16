@@ -8,4 +8,3 @@ try {
     echo "<h2 style='color:red;'>Erro: " . $erro->getMessage() . 
         "</h2>";
 }
-//luis miguel
