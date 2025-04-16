@@ -15,7 +15,7 @@
         <h2>Login:</h2>
         <form action="login.php" method="post" class="login-box">
             <div class="input-group">
-                <img src="imagens/usuario.svg" alt="CantinaPlus icon" class="icon usuario">
+                <img src="imagens/usuario.png" alt="CantinaPlus icon" class="icon usuario">
                 <div class="input-wrapper">
                     <label for="usuario">Usuário:</label>
                     <input type="text" name="usuario" id="usuario" placeholder="digite seu nome de usuario:" required>
@@ -23,7 +23,7 @@
             </div>
 
             <div class="input-group">
-                <img src="imagens/senha.svg" alt="CantinaPlus icon" class="icon senha">
+                <img src="imagens/senha.png" alt="CantinaPlus icon" class="icon senha">
                 <div class="input-wrapper">
                     <label for="senha">Senha:</label>
                     <input type="password" name="senha" id="senha" placeholder="digite sua senha:" required>
@@ -31,7 +31,12 @@
             </div>
 
             <button type="submit">Acessar</button>
-            <p class="register-link">Ainda não tem conta? <a href="cadDadosPessoais.php">Clique aqui.</a></p>
+
+            
+            <div class="register-link">
+                Ainda não tem conta? <a href="cadDadosPessoais.php">Clique aqui.</a><br>
+                <a href="recuperar_senha.php">Esqueceu a senha?</a>
+            </div>
         </form>
     </div>
 
