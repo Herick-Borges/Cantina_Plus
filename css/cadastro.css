@@ -1,0 +1,144 @@
+/* Estilos Globais */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+}
+
+/* Header */
+.header {
+    background-color: #f0b323;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+}
+
+.logo {
+    height: 100px;
+}
+
+/* Container Principal */
+.container {
+    padding: 30px;
+    text-align: center;
+}
+
+h2 {
+    color: #a52a2a;
+}
+
+/* Login Box */
+.box {
+    background-color: #f3f9fb;
+    display: inline-block;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0px 3px 6px rgba(0,0,0,0.16);
+}
+
+/* Grupos de Input */
+.input-group {
+    margin-bottom: 20px;
+    text-align: left;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px; 
+}
+
+.input-group label {
+    margin-bottom: 10px;  
+    display: block;  
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background-color: #f6caca;
+    border-radius: 5px;
+    box-shadow: 0 4px 2px -2px gray;
+}
+
+.input-wrapper {
+    flex: 1;
+    display: inline-block;
+
+}
+
+/* Estilos de validação */
+.input-error {
+    border: 1px solid red !important;
+    background-color: #fff0f0 !important;
+}
+
+.error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+/* Botão */
+button {
+    background-color: #a52a2a;
+    color: white;
+    padding: 10px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Links */
+.register-link {
+    margin-top: 15px;
+    font-size: 0.9em;
+}
+
+.register-link a {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+/* Ícones */
+.icon {
+    width: 18%; 
+    height: 18%;
+    margin-right: 10px;
+    margin-top: 32px; /* Compensa o espaço do label */
+} 
+
+/* Footer */
+footer {
+    text-align: center;
+    margin-top: 50px;
+    color: #a52a2a;
+}
+
+.step {
+    display: none;
+}
+
+.step.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateX(50px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+.progress-bar {
+    width: 100%;
+    height: 10px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.progress {
+    height: 100%;
+    background-color: #4CAF50;
+    width: 0;
+    transition: width 0.3s;
+    border-radius: 5px;
+}
