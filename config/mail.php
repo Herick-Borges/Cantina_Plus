@@ -2,23 +2,23 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require 'PHPMailer/src/Exception.php';
-require 'PHPMailer/src/PHPMailer.php';
-require 'PHPMailer/src/SMTP.php';
+require_once __DIR__ . '/../PHPMailer/PHPMailer-master/src/Exception.php';
+require_once __DIR__ . '/../PHPMailer/PHPMailer-master/src/PHPMailer.php';
+require_once __DIR__ . '/../PHPMailer/PHPMailer-master/src/SMTP.php';
 
 function enviarEmail($destinatario, $nome, $assunto, $corpo) {
     $mail = new PHPMailer(true);
 
     try {
         $mail->isSMTP();
-        $mail->Host = 'smtp.gmail.com'; // Altere para seu servidor SMTP
+        $mail->Host = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
-        $mail->Username = 'seu-email@gmail.com'; // Seu email
-        $mail->Password = 'sua-senha-app'; // Sua senha
+        $mail->Username = 'devherick.suporte@gmail.com'; // Coloque seu email Gmail
+        $mail->Password = 'ehgfrqsymyvsfnhi'; // Cole a senha de 16 caracteres gerada
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
 
-        $mail->setFrom('seu-email@gmail.com', 'CantinaPlus');
+        $mail->setFrom('devherick.suporte@gmail.com', 'CantinaPlus'); // Use o mesmo email
         $mail->addAddress($destinatario, $nome);
         $mail->CharSet = 'UTF-8';
 

@@ -42,13 +42,17 @@ if (!$token_valido) {
                 <div class="input-group">
                     <div class="input-wrapper">
                         <label for="senha">Nova Senha:</label>
-                        <input type="password" name="senha" required>
+                        <div class="password-container">
+                            <input type="password" name="senha" id="senha" required>
+                        </div>
                     </div>
                 </div>
                 <div class="input-group">
                     <div class="input-wrapper">
                         <label for="confirma_senha">Confirme a Senha:</label>
-                        <input type="password" name="confirma_senha" required>
+                        <div class="password-container">
+                            <input type="password" name="confirma_senha" id="confirma_senha" required>
+                        </div>
                     </div>
                 </div>
                 <button type="submit">Alterar Senha</button>

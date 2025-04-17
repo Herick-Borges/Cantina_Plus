@@ -13,6 +13,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->execute();
             
             if ($user = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                // Adicionar verificação de token existente
+                $sql = "UPDATE Usuarios SET reset_token = NULL, token_expira = NULL 
+                        WHERE Id = :id AND (reset_token IS NOT NULL OR token_expira IS NOT NULL)";
+                $stmt = $conn->prepare($sql);
+                $stmt->bindParam(':id', $user['Id']);
+                $stmt->execute();
+                
                 $token = bin2hex(random_bytes(32));
                 $expira = date('Y-m-d H:i:s', strtotime('+1 hour'));
                 

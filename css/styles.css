@@ -28,13 +28,14 @@ h2 {
     color: #a52a2a;
 }
 
-/* Login Box */
+/* Login Box - Aumentando o tamanho */
 .login-box {
     background-color: #f3f9fb;
     display: inline-block;
-    padding: 30px;
+    padding: 40px 60px; /* Aumentado o padding */
     border-radius: 8px;
     box-shadow: 0px 3px 6px rgba(0,0,0,0.16);
+    min-width: 400px; /* Largura mínima definida */
 }
 
 /* Grupos de Input */
@@ -60,26 +61,31 @@ h2 {
     box-shadow: 0 4px 2px -2px gray;
 }
 
-.input-wrapper {
-    flex: 1;
-    display: inline-block;
-
-}
-
 /* Input de Email na Recuperação de Senha */
 #Email {
     width: 300px; /* Largura aumentada */
     padding: 12px; /* Padding aumentado */
 }
 
-/* Botão */
-button {
+/* Botão padrão (mantém apenas para botões de submit) */
+button[type="submit"] {
     background-color: #a52a2a;
     color: white;
     padding: 10px 30px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+}
+
+/* Estilo atualizado para o container de senha */
+.password-container input {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: #f6caca;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 4px 2px -2px gray;
 }
 
 /* Links */
@@ -102,6 +108,11 @@ button {
     margin-right: 10px;
     margin-top: 10px; /* Alterado de 32px para 25px para subir o ícone */
 } 
+
+/* Remover estilos desnecessários */
+.input-wrapper {
+    width: 100%;
+}
 
 /* Footer */
 footer {

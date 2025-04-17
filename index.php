@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - CantinaPlus</title>
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <div class="header">
@@ -26,7 +27,15 @@
                 <img src="imagens/senha.png" alt="CantinaPlus icon" class="icon senha">
                 <div class="input-wrapper">
                     <label for="senha">Senha:</label>
-                    <input type="password" name="senha" id="senha" placeholder="digite sua senha:" required>
+                    <div class="password-container">
+                        <input 
+                            type="password" 
+                            name="senha" 
+                            id="senha" 
+                            placeholder="digite sua senha:" 
+                            required
+                        />
+                    </div>
                 </div>
             </div>
 
@@ -43,5 +52,15 @@
     <footer>
         <p>Todos os direitos reservados <span style= "color: black;">CantinaPlus</span> Inc</p>
     </footer>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.querySelector('form');
+        form.addEventListener('submit', function(e) {
+            // ...existing code...
+        });
+    });
+    </script>
 </body>
 </html>
+

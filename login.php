@@ -1,7 +1,6 @@
 <?php
 session_start();
 require_once 'banco/conexão.php';
-header('Content-Type: application/json');
 
 $usuario = $_POST['usuario'] ?? '';
 $senha = $_POST['senha'] ?? '';
@@ -17,14 +16,26 @@ try {
             if (password_verify($senha, $row['Senha'])) {
                 $_SESSION['usuario_id'] = $row['Id'];
                 $_SESSION['usuario_nome'] = $row['nome'];
-                echo json_encode(['status' => 'success', 'message' => 'Login realizado com sucesso']);
+                echo "<script>
+                    alert('Login realizado com sucesso!');
+                    window.location.href = 'dashboard.php';
+                    </script>";
                 exit();
             }
         }
-        echo json_encode(['status' => 'error', 'message' => 'Usuário ou senha inválidos']);
+        echo "<script>
+            alert('Usuário ou senha inválidos');
+            window.history.back();
+            </script>";
     } else {
-        echo json_encode(['status' => 'error', 'message' => 'Por favor, preencha todos os campos']);
+        echo "<script>
+            alert('Por favor, preencha todos os campos');
+            window.history.back();
+            </script>";
     }
 } catch (PDOException $e) {
-    echo json_encode(['status' => 'error', 'message' => 'Erro ao processar login']);
+    echo "<script>
+        alert('Erro ao processar login');
+        window.history.back();
+        </script>";
 }
