@@ -23,16 +23,6 @@ unset($_SESSION['erros']); // Limpar depois de usar
     </div>
 
     <div class="container">
-        <?php if (!empty($erros)): ?>
-            <div class="alert alert-danger">
-                <ul>
-                    <?php foreach($erros as $erro): ?>
-                        <li><?php echo htmlspecialchars($erro); ?></li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
-        <?php endif; ?>
-
         <div class="progress-bar">
             <div class="progress" id="progress"></div>
         </div>
