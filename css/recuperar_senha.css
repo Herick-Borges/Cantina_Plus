@@ -29,8 +29,12 @@ body {
     margin: 0 auto;
 }
 
-/* Login Box */
-.login-box {
+h2 {
+    color: #a52a2a;
+}
+
+/* Box de recuperação */
+.recuperacao-box {
     background-color: white;
     display: inline-block;
     padding: 40px 60px;
@@ -41,7 +45,7 @@ body {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.login-box:hover {
+.recuperacao-box:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 20px rgba(0,0,0,0.12);
 }
@@ -51,7 +55,7 @@ body {
     margin-bottom: 25px;
     text-align: left;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 10px;
     width: 100%;
 }
@@ -68,27 +72,23 @@ body {
     width: 100%;
     padding: 15px;
     border: none;
-    background-color: #f6caca; /* Mudando para o vermelho claro */
+    background-color: var(--cor-input);
     border-radius: 8px;
     box-shadow: inset 0 1px 3px rgba(0,0,0,0.08);
     margin-bottom: 5px;
     box-sizing: border-box;
-    transition: all 0.3s ease;
+    min-width: 300px;
 }
 
-.input-group input:focus {
-    background-color: #ffffff; /* Mudando para branco quando focado */
-    box-shadow: 0 0 0 2px rgba(240, 179, 35, 0.25);
+.input-wrapper {
+    flex: 1;
+    display: inline-block;
+    width: 100%;
+    min-width: 300px;
 }
 
-/* Input de Email na Recuperação de Senha */
-#Email {
-    width: 300px;
-    padding: 12px;
-}
-
-/* Botão padrão (mantém apenas para botões de submit) */
-button[type="submit"] {
+/* Botão */
+button {
     background-color: #a52a2a;
     color: white;
     padding: 10px 30px;
@@ -97,51 +97,18 @@ button[type="submit"] {
     cursor: pointer;
 }
 
-/* Ajustando container de senha para manter consistência */
-.password-container input {
-    width: 100%;
-    padding: 15px;
-    box-sizing: border-box;
-    background-color: #f6caca; /* Mantendo o vermelho claro */
-    border: none;
-    border-radius: 8px; /* Atualizado para 8px para ser igual aos outros inputs */
-    box-shadow: inset 0 1px 3px rgba(0,0,0,0.08); /* Ajustado para ser igual aos outros inputs */
-    transition: all 0.3s ease;
-}
-
-.password-container input:focus {
-    background-color: #ffffff; /* Mudando para branco quando focado */
-    box-shadow: 0 0 0 2px rgba(240, 179, 35, 0.25);
-}
-
-/* Links adicionais */
-.register-link {
+/* Links */
+.login-link {
     margin-top: 20px;
     font-size: 0.95em;
     color: #666;
 }
 
-.register-link a {
+.login-link a {
     color: #007BFF;
     text-decoration: none;
     display: inline-block;
     margin: 5px 0;
-}
-
-/* Ícones */
-.icon {
-    width: 17%; 
-    height: 17%;
-    margin-right: 10px;
-    margin-top: 30px;
-    align-self: flex-start;
-} 
-
-/* Input Wrapper - Equiparando ao cadastro.css */
-.input-wrapper {
-    width: 100%;
-    flex: 1;
-    display: inline-block;
 }
 
 /* Footer */

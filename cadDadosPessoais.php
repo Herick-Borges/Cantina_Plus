@@ -56,6 +56,10 @@ unset($_SESSION['erros']); // Limpar depois de usar
                     </div>
                 </div>
                 <button type="button" id="nextBtn1">Próximo</button>
+                
+                <div class="login-link">
+                    <a href="index.php">Voltar para Login</a>
+                </div>
             </div>
 
             <!-- Etapa 2: Contato -->

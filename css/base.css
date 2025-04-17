@@ -1,0 +1,110 @@
+/* Importação de Fontes */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap');
+
+/* Estilos Globais Base */
+:root {
+    --cor-primaria: #f0b323;
+    --cor-secundaria: #a52a2a;
+    --cor-texto: #333;
+    --cor-fundo: #fff;
+    --cor-input: #f3f3f3;
+    --cor-destaque: #007BFF;
+    --sombra-suave: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+body {
+    font-family: 'Nunito', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto);
+    line-height: 1.6;
+}
+
+/* Header */
+.header {
+    background: linear-gradient(to right, #f0b323, #f5c855);
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.logo {
+    height: 100px;
+    transition: transform 0.3s ease;
+}
+
+.logo:hover {
+    transform: scale(1.02);
+}
+
+/* Tipografia */
+h2 {
+    color: var(--cor-secundaria);
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+}
+
+/* Botões */
+button {
+    background: linear-gradient(to right, #a52a2a, #bc3b3b);
+    color: white;
+    padding: 12px 32px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    box-shadow: var(--sombra-suave);
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+/* Inputs estilizados */
+input {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    background-color: var(--cor-input);
+    border-radius: 5px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+    font-family: 'Nunito', sans-serif;
+    transition: all 0.3s ease;
+}
+
+input:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+/* Links */
+a {
+    color: var(--cor-destaque);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    margin-top: 50px;
+    color: var(--cor-secundaria);
+    font-weight: 300;
+    padding: 20px;
+}

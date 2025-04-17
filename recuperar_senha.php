@@ -3,12 +3,12 @@
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recuperar Senha</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <title>Recuperação de Senha - CantinaPlus</title>
+    <link rel="stylesheet" href="css/recuperar_senha.css">
 </head>
 <body>
     <div class="header">
@@ -16,22 +16,25 @@
     </div>
 
     <div class="container">
-        <div class="form-wrapper">
-            <h2>Recuperar Senha</h2>
-            <p>Digite seu e-mail para receber um link de redefinição de senha.</p>
-            <form action="processa_recuperar_senha.php" method="POST" class="login-box">
-                <div class="input-group">
-                    <div class="input-wrapper">
-                        <label for="Email">Email:</label>
-                        <input type="email" name="Email" id="Email" placeholder="Digite seu email:" required
-                               value="<?php echo isset($form_data['Email']) ? htmlspecialchars($form_data['Email']) : ''; ?>">
-                    </div>
+        <h2>Recuperação de Senha</h2>
+        <form action="processar_recuperacao.php" method="post" class="recuperacao-box">
+            <div class="input-group">
+                <div class="input-wrapper">
+                    <label for="Email">Email:</label>
+                    <input type="email" name="Email" id="Email" placeholder="Digite seu email cadastrado:" required>
                 </div>
-                <div class="form-group">
-                    <button type="submit" class="btn">Enviar</button>
-                </div>
-            </form>
-        </div>
+            </div>
+            
+            <button type="submit">Enviar</button>
+            
+            <div class="login-link">
+                <a href="index.php">Voltar para Login</a>
+            </div>
+        </form>
     </div>
+
+    <footer>
+        <p>Todos os direitos reservados <span style="color: black;">CantinaPlus</span> Inc</p>
+    </footer>
 </body>
 </html>
