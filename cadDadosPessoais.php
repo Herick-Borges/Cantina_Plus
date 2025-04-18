@@ -126,6 +126,13 @@ unset($_SESSION['erro_interno']); // Limpar depois de usar
                         <div id="senha-forca"></div>
                     </div>
                 </div>
+                <div class="input-group">
+                    <div class="input-wrapper">
+                        <label for="confirmaSenha">Confirme sua Senha:</label>
+                        <input type="password" name="confirmaSenha" id="confirmaSenha" placeholder="Confirme sua senha:" required>
+                    </div>
+                </div>
+                <div class="g-recaptcha" data-sitekey="6Ld_YRwrAAAAABZMFHk3DKlq2imB8Th0vMNF67iz"></div>
                 <button type="button" id="prevBtn3">Voltar</button>
                 <button type="submit" id="submitBtn">Cadastrar</button>
             </div>

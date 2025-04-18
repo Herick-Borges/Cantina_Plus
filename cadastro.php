@@ -88,6 +88,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $telefone = isset($_POST['Telefone']) ? preg_replace('/\D/', '', $_POST['Telefone']) : '';
     $usuario = isset($_POST['usuario']) ? trim($_POST['usuario']) : '';
     $senha = isset($_POST['senha']) ? trim($_POST['senha']) : '';
+    $confirmaSenha = isset($_POST['confirmaSenha']) ? trim($_POST['confirmaSenha']) : '';
+    $recaptchaResponse = isset($_POST['g-recaptcha-response']) ? $_POST['g-recaptcha-response'] : '';
     
     // Array para armazenar mensagens de erro
     $erros = [];
@@ -127,6 +129,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $erros[] = "A senha é obrigatória.";
     } elseif (strlen($senha) < 6) {
         $erros[] = "A senha deve ter no mínimo 6 caracteres.";
+    }
+    
+    // Validação da Confirmação de Senha
+    if ($senha !== $confirmaSenha) {
+        $erros[] = "As senhas não coincidem.";
+    }
+
+    // Validação do reCAPTCHA
+    $recaptchaSecret = "REPLACE_WITH_YOUR_RECAPTCHA_SECRET_KEY";
+    $recaptchaVerify = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$recaptchaSecret&response=$recaptchaResponse");
+    $recaptchaVerify = json_decode($recaptchaVerify);
+    if (!$recaptchaVerify->success) {
+        $erros[] = "Falha na verificação do CAPTCHA. Tente novamente.";
     }
     
     // Verificar se o CPF, email ou usuário já estão cadastrados (usando PDO)

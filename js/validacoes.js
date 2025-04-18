@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const telefoneInput = document.getElementById("Telefone");
     const usuarioInput = document.getElementById("usuario");
     const senhaInput = document.getElementById("senha");
+    const confirmaSenhaInput = document.getElementById("confirmaSenha");
     const senhaForca = document.getElementById("senha-forca");
     const nomeInput = document.getElementById("Nome");
 
@@ -21,6 +22,11 @@ document.addEventListener("DOMContentLoaded", () => {
         if (erros.length > 0) {
             exibirToast(erros);
         } else {
+            const recaptchaResponse = grecaptcha.getResponse();
+            if (!recaptchaResponse) {
+                exibirToast([{ campo: null, mensagem: "Por favor, complete o CAPTCHA." }]);
+                return;
+            }
             form.submit();
         }
     });
@@ -114,6 +120,12 @@ document.addEventListener("DOMContentLoaded", () => {
         const senha = senhaInput.value;
         if (!validarSenha(senha)) {
             erros.push({ campo: senhaInput, mensagem: "A senha deve ter entre 6 e 20 caracteres, incluindo letras maiúsculas, minúsculas, números e caracteres especiais." });
+        }
+
+        // Validação da Confirmação de Senha
+        const confirmaSenha = confirmaSenhaInput.value;
+        if (senha !== confirmaSenha) {
+            erros.push({ campo: confirmaSenhaInput, mensagem: "As senhas não coincidem." });
         }
 
         return erros;
@@ -216,7 +228,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function exibirToast(erros) {
         toastContainer.innerHTML = "";
         const primeiroErro = erros[0];
-        primeiroErro.campo.focus();
+        if (primeiroErro.campo) primeiroErro.campo.focus();
         erros.forEach((erro) => {
             const toast = document.createElement("div");
             toast.className = "toast";
