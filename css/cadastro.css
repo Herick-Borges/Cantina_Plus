@@ -213,3 +213,27 @@ footer {
     from { opacity: 0; transform: translateX(50px); }
     to { opacity: 1; transform: translateX(0); }
 }
+
+/* Estilos para os indicadores de status */
+.status-message {
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-left: 10px;
+    display: inline-block;
+}
+
+.status-message.verificando {
+    color: #007BFF; /* Azul para "Verificando..." */
+}
+
+.status-message.valido {
+    color: #28a745; /* Verde para "Válido" */
+}
+
+.status-message.invalido {
+    color: #dc3545; /* Vermelho para "Inválido" */
+}
+
+.status-message.erro {
+    color: #ffc107; /* Amarelo para "Erro" */
+}

@@ -19,6 +19,62 @@ if (!isset($conn) || $conn === null) {
     die("Erro na conexão com o banco de dados. Contate o administrador.");
 }
 
+// Função para validar telefone
+function validarTelefone($telefone) {
+    // Remove caracteres não numéricos
+    $telefone = preg_replace('/\D/', '', $telefone);
+
+    // Verifica se o telefone tem exatamente 11 dígitos e começa com DDD válido
+    if (strlen($telefone) !== 11) {
+        return false;
+    }
+
+    // Verifica se o DDD é válido (exemplo: 11 a 99)
+    $ddd = substr($telefone, 0, 2);
+    if (!preg_match('/^[1-9][0-9]$/', $ddd)) {
+        return false;
+    }
+
+    // Verifica se o número segue o padrão 9XXXXYYYY
+    $numero = substr($telefone, 2);
+    if (!preg_match('/^[9][0-9]{8}$/', $numero)) {
+        return false;
+    }
+
+    return true;
+}
+
+// Função para validar CPF
+function validarCPF($cpf) {
+    $cpf = preg_replace('/\D/', '', $cpf);
+
+    if (strlen($cpf) !== 11) return false;
+
+    if (in_array($cpf, [
+        '00000000000',
+        '11111111111',
+        '22222222222',
+        '33333333333',
+        '44444444444',
+        '55555555555',
+        '66666666666',
+        '77777777777',
+        '88888888888',
+        '99999999999',
+    ])) return false;
+
+    for ($t = 9; $t < 11; $t++) {
+        $d = 0;
+        for ($c = 0; $c < $t; $c++) {
+            $d += $cpf[$c] * (($t + 1) - $c);
+        }
+        $d = ((10 * $d) % 11) % 10;
+        if ($cpf[$c] != $d) return false;
+    }
+
+    return true;
+}
+
 // Adicionar logs para depuração
 error_log("Arquivo cadastro.php acessado - METHOD: " . $_SERVER["REQUEST_METHOD"]);
 error_log("POST data: " . print_r($_POST, true));
@@ -38,37 +94,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     // Validar campos
     if (empty($nome)) {
-        $erros[] = "O nome é obrigatório";
+        $erros[] = "O nome é obrigatório.";
     } elseif (!preg_match("/^[a-zA-ZÀ-ÖØ-öø-ÿ\s]+$/", $nome)) {
-        $erros[] = "O nome deve conter apenas letras";
+        $erros[] = "O nome deve conter apenas letras.";
+    } elseif (str_word_count($nome) < 2) {
+        $erros[] = "O nome deve conter pelo menos duas palavras.";
     }
     
     if (empty($cpf)) {
-        $erros[] = "O CPF é obrigatório";
-    } elseif (strlen($cpf) != 11) {
-        $erros[] = "O CPF deve conter 11 dígitos";
+        $erros[] = "O CPF é obrigatório.";
+    } elseif (!validarCPF($cpf)) {
+        $erros[] = "CPF inválido.";
     }
     
     if (empty($email)) {
-        $erros[] = "O email é obrigatório";
+        $erros[] = "O email é obrigatório.";
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $erros[] = "O email informado é inválido";
+        $erros[] = "O email informado é inválido.";
     }
     
     if (empty($telefone)) {
-        $erros[] = "O telefone é obrigatório";
-    } elseif (strlen($telefone) != 11) {
-        $erros[] = "O telefone deve conter 11 dígitos";
+        $erros[] = "O telefone é obrigatório.";
+    } elseif (!validarTelefone($telefone)) {
+        $erros[] = "Telefone inválido. Deve conter 11 dígitos e estar no formato correto (ex.: 11987654321).";
     }
     
     if (empty($usuario)) {
-        $erros[] = "O usuário é obrigatório";
+        $erros[] = "O nome de usuário é obrigatório.";
     }
     
     if (empty($senha)) {
-        $erros[] = "A senha é obrigatória";
+        $erros[] = "A senha é obrigatória.";
     } elseif (strlen($senha) < 6) {
-        $erros[] = "A senha deve ter no mínimo 6 caracteres";
+        $erros[] = "A senha deve ter no mínimo 6 caracteres.";
     }
     
     // Verificar se o CPF, email ou usuário já estão cadastrados (usando PDO)
@@ -85,13 +143,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (count($resultado) > 0) {
             foreach ($resultado as $row) {
                 if ($row['cpf'] == $cpf) {
-                    $erros[] = "CPF já cadastrado";
+                    $erros[] = "CPF já cadastrado.";
                 }
                 if ($row['email'] == $email) {
-                    $erros[] = "Email já cadastrado";
+                    $erros[] = "Email já cadastrado.";
                 }
                 if ($row['usuario'] == $usuario) {
-                    $erros[] = "Nome de usuário já está em uso";
+                    $erros[] = "Nome de usuário já está em uso.";
                 }
             }
         }
@@ -119,16 +177,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             
             // Tentar inserir os dados e verificar se houve sucesso
             if ($stmt->execute()) {
-                // Garantir que as mensagens de sessão sejam definidas corretamente
-                $_SESSION['mensagem'] = "Cadastro realizado com sucesso!";
-                $_SESSION['tipo_mensagem'] = "sucesso";
-                
-                // Verificar se a mensagem foi definida na sessão (para depuração)
-                error_log("Mensagem de sucesso definida: " . $_SESSION['mensagem']);
-                error_log("Redirecionando para index.php");
-                
-                // Garantir que o redirecionamento ocorra
-                header("Location: index.php");
+                // Redirecionar para o index com parâmetro de sucesso
+                header("Location: index.php?cadastro=sucesso");
                 exit(); // Importante para interromper a execução após o redirecionamento
             } else {
                 throw new PDOException("Erro ao executar a consulta de inserção.");

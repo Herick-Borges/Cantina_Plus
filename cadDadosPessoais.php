@@ -8,6 +8,10 @@ unset($_SESSION['form_data']); // Limpar depois de usar
 // Recuperar erros
 $erros = isset($_SESSION['erros']) ? $_SESSION['erros'] : [];
 unset($_SESSION['erros']); // Limpar depois de usar
+
+// Verificar se há erro interno
+$erro_interno = isset($_SESSION['erro_interno']) ? $_SESSION['erro_interno'] : false;
+unset($_SESSION['erro_interno']); // Limpar depois de usar
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -16,6 +20,8 @@ unset($_SESSION['erros']); // Limpar depois de usar
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro - CantinaPlus</title>
     <link rel="stylesheet" href="css/cadastro.css">
+    <link rel="stylesheet" href="css/toast.css"> <!-- Adicionar estilo para Toast -->
+    <script src="js/validacoes.js" defer></script> <!-- Adicionar script de validações -->
 </head>
 <body>
     <div class="header">
@@ -23,6 +29,29 @@ unset($_SESSION['erros']); // Limpar depois de usar
     </div>
 
     <div class="container">
+        <?php if ($erro_interno): ?>
+            <div class="toast toast-aviso">
+                <p>Não foi possível efetuar o cadastro! Tente novamente mais tarde.</p>
+            </div>
+        <?php endif; ?>
+
+        <!-- Exibir toasts para erros -->
+        <?php if (!empty($erros)): ?>
+            <div id="toast-container">
+                <?php foreach ($erros as $erro): ?>
+                    <div class="toast toast-erro">
+                        <p><?php echo htmlspecialchars($erro); ?></p>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+            <script>
+                // Remover os toasts após 5 segundos
+                setTimeout(() => {
+                    document.querySelectorAll('.toast').forEach(toast => toast.remove());
+                }, 5000);
+            </script>
+        <?php endif; ?>
+
         <div class="progress-bar">
             <div class="progress" id="progress"></div>
         </div>
@@ -43,6 +72,8 @@ unset($_SESSION['erros']); // Limpar depois de usar
                         <label for="CPF">CPF:</label>
                         <input type="text" name="CPF" id="CPF" placeholder="Digite seu CPF:" required
                                value="<?php echo isset($form_data['CPF']) ? htmlspecialchars($form_data['CPF']) : ''; ?>">
+                        <span id="cpf-status" class="status-message"></span> <!-- Indicador de status do CPF -->
+                        <span class="error-message" id="cpf-error"></span> <!-- Mensagem de erro do CPF -->
                     </div>
                 </div>
                 <button type="button" id="nextBtn1">Próximo</button>
@@ -60,6 +91,7 @@ unset($_SESSION['erros']); // Limpar depois de usar
                         <label for="Email">Email:</label>
                         <input type="email" name="Email" id="Email" placeholder="Digite seu email:" required
                                value="<?php echo isset($form_data['Email']) ? htmlspecialchars($form_data['Email']) : ''; ?>">
+                        <span class="error-message" id="email-error"></span>
                     </div>
                 </div>
                 <div class="input-group">
@@ -67,6 +99,7 @@ unset($_SESSION['erros']); // Limpar depois de usar
                         <label for="Telefone">Telefone:</label>
                         <input type="tel" name="Telefone" id="Telefone" placeholder="Digite seu telefone:" required
                                value="<?php echo isset($form_data['Telefone']) ? htmlspecialchars($form_data['Telefone']) : ''; ?>">
+                        <span class="error-message" id="telefone-error"></span>
                     </div>
                 </div>
                 <button type="button" id="prevBtn2">Voltar</button>
@@ -81,12 +114,16 @@ unset($_SESSION['erros']); // Limpar depois de usar
                         <label for="usuario">Usuário:</label>
                         <input type="text" name="usuario" id="usuario" placeholder="Digite seu nome de usuário:" required
                                value="<?php echo isset($form_data['usuario']) ? htmlspecialchars($form_data['usuario']) : ''; ?>">
+                        <span id="usuario-status" class="status-message"></span> <!-- Indicador de status do nome de usuário -->
+                        <span class="error-message" id="usuario-error"></span> <!-- Mensagem de erro do nome de usuário -->
                     </div>
                 </div>
                 <div class="input-group">
                     <div class="input-wrapper">
                         <label for="senha">Senha:</label>
                         <input type="password" name="senha" id="senha" placeholder="Digite sua senha:" required>
+                        <span class="error-message" id="senha-error"></span>
+                        <div id="senha-forca"></div>
                     </div>
                 </div>
                 <button type="button" id="prevBtn3">Voltar</button>

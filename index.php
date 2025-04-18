@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - CantinaPlus</title>
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/toast.css"> <!-- Adicionar estilo para Toast -->
 </head>
 <body>
     <div class="header">
@@ -45,6 +46,17 @@
             </div>
         </form>
     </div>
+
+    <?php if (isset($_GET['cadastro']) && $_GET['cadastro'] === 'sucesso'): ?>
+        <div class="toast toast-sucesso">
+            <p>Cadastro realizado com sucesso! Faça login para continuar.</p>
+        </div>
+        <script>
+            setTimeout(() => {
+                document.querySelector('.toast').style.display = 'none';
+            }, 5000); // Esconde o Toast após 5 segundos
+        </script>
+    <?php endif; ?>
 
     <footer>
         <p>Todos os direitos reservados <span style= "color: black;">CantinaPlus</span> Inc</p>
